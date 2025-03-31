@@ -1,4 +1,4 @@
-FROM node:21-slim
+FROM node:lts-slim
 
 WORKDIR /app
 
@@ -12,5 +12,4 @@ COPY . .
 
 EXPOSE 5681
 
-# Start the application
-CMD ["pnpm", "dev"] 
+CMD ["pnpm", "dev"]
