@@ -38,6 +38,18 @@
   exchange_operations       (ref customerId)
   ```
 
+- [ ] **#2.1** Criar `src/services/selicRateService.ts` — buscar taxa Selic atualizada do Banco Central
+  - API: `GET https://api.bcb.gov.br/dados/serie/bcdata.sgs.11/dados/ultimos/1?formato=json`
+  - Resposta: `[{ "data": "24/04/2026", "valor": "0.054266" }]`
+  - O campo `valor` é a **taxa diária em %** (ex: `0.054266` = 0,054266% ao dia)
+  - Para obter a taxa anual: `(1 + valor / 100) ^ 252 - 1`
+  - Série `11` = Selic, série `12` = CDI
+  - Fazer cache em memória (a taxa muda no máximo 1x/mês pelo COPOM)
+  - Usar nos seguintes pontos:
+    - **Seed (#3)**: calcular `postFixedRate` realista nos `BankFixedIncome`, `CreditFixedIncome` e `TreasureTitle`
+    - **Contracts (#9)**: preencher `referentialRateIndexer: 'SELIC'` com taxa base real + spread simulado
+    - **Investments (#10)**: retornar rentabilidade atualizada nos produtos CDI/Selic-indexados
+
 - [ ] **#3** Implementar seed de dados realistas no MongoDB
   - 2–3 clientes PF e PJ com CPF/CNPJ válidos
   - Contas corrente e poupança com saldos
