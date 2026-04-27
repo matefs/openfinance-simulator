@@ -11,15 +11,32 @@
 ## Fundação (pré-requisito para todo o resto)
 
 - [ ] **#2** Criar Mongoose schemas para todos os domínios
-  - Consent (data sharing + payment consent)
-  - Account, AccountBalance, AccountTransaction
-  - CreditCardAccount, CreditCardBill, CreditCardTransaction
-  - Customer (personal + business)
-  - Loan / Financing / InvoiceFinancing / UnarrangedOverdraft Contract
-  - PixPayment
-  - Investment (bank-fixed-income, credit-fixed-income, variable-income, treasure-title)
-  - Exchange Operation
   - Cada model em `src/models/<domain>/<Entity>.model.ts`
+
+  **Decisões de design acordadas:**
+
+  - `Customer` é a âncora central — todas as entidades referenciam via `customerId`
+  - `DataSharingConsent` e `PaymentConsent` são **coleções separadas** (campos e lifecycle diferentes)
+  - `Contract` é **uma coleção** com campo `contractType: 'LOAN' | 'FINANCING' | 'INVOICE_FINANCING' | 'UNARRANGED_OVERDRAFT'`
+  - `balance` é **embedado** no `Account` (não é coleção separada)
+  - `AccountTransaction` e `CreditCardTransaction` são **coleções separadas** (crescem sem limite), com índice em `accountId + transactionDate`
+  - `Investment` é **uma coleção** com campo `investmentType: 'BANK_FIXED_INCOME' | 'CREDIT_FIXED_INCOME' | 'VARIABLE_INCOME' | 'TREASURE_TITLE'`
+
+  **Collections resultantes:**
+  ```
+  customers
+  accounts                  (balance embedado, ref customerId)
+  account_transactions      (ref accountId)
+  credit_card_accounts      (ref customerId)
+  credit_card_bills         (ref creditCardAccountId)
+  credit_card_transactions  (ref creditCardAccountId + billId)
+  data_sharing_consents     (ref customerId)
+  payment_consents          (ref customerId)
+  pix_payments              (ref paymentConsentId)
+  contracts                 (ref customerId, campo contractType)
+  investments               (ref customerId, campo investmentType)
+  exchange_operations       (ref customerId)
+  ```
 
 - [ ] **#3** Implementar seed de dados realistas no MongoDB
   - 2–3 clientes PF e PJ com CPF/CNPJ válidos
