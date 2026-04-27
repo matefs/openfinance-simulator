@@ -2,7 +2,7 @@
 
 ## Correções imediatas
 
-- [ ] **#1** Registrar as 2 rotas ausentes no router
+- [x] **#1** Registrar as 2 rotas ausentes no router
   - `GET /open-banking/consents/v1/consents` → `consentsGet.ts`
   - `GET /open-banking/investments/v1/treasure-titles` → `investmentsTreasureTitlesGet.ts`
 

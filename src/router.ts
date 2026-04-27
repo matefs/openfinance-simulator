@@ -21,6 +21,7 @@ import { productsPersonalUnarrangedAccountOverdraftGet } from './endpoints/produ
 import { productsBusinessUnarrangedAccountOverdraftGet } from './endpoints/products/productsBusinessUnarrangedAccountOverdraftGet.ts';
 import { productsPersonalInvoiceFinancingsGet } from './endpoints/products/productsPersonalInvoiceFinancingsGet.ts';
 import { productsBusinessInvoiceFinancingsGet } from './endpoints/products/productsBusinessInvoiceFinancingsGet.ts';
+import { consentsGet } from './endpoints/consents/consentsGet.ts';
 import { consentsConsentIdGet } from './endpoints/consents/consentsConsentIdGet.ts';
 import { consentsConsentIdDelete } from './endpoints/consents/consentsConsentIdDelete.ts';
 import { resourcesResourcesGet } from './endpoints/resources/resourcesResourcesGet.ts';
@@ -65,6 +66,7 @@ import { investmentsFundsTitlesTypesGet } from './endpoints/investments/investme
 import { investmentsBankFixedIncomesGet } from './endpoints/investments/investmentsBankFixedIncomesGet.ts';
 import { investmentsCreditFixedIncomesGet } from './endpoints/investments/investmentsCreditFixedIncomesGet.ts';
 import { investmentsVariableIncomesGet } from './endpoints/investments/investmentsVariableIncomesGet.ts';
+import { investmentsTreasureTitlesGet } from './endpoints/investments/investmentsTreasureTitlesGet.ts';
 import { exchangeOperationsCurrentGet } from './endpoints/exchange/exchangeOperationsCurrentGet.ts';
 import { exchangeOperationsEventGet } from './endpoints/exchange/exchangeOperationsEventGet.ts';
 import { exchangeOperationsFutureGet } from './endpoints/exchange/exchangeOperationsFutureGet.ts';
@@ -293,6 +295,7 @@ router.get(
   '/open-banking/products-services/v1/business-invoice-financings',
   productsBusinessInvoiceFinancingsGet,
 );
+router.get('/open-banking/consents/v1/consents', consentsGet);
 router.get(
   '/open-banking/consents/v1/consents/:consentId',
   consentsConsentIdGet,
@@ -450,6 +453,10 @@ router.get(
 router.get(
   '/open-banking/investments/v1/variable-incomes',
   investmentsVariableIncomesGet,
+);
+router.get(
+  '/open-banking/investments/v1/treasure-titles',
+  investmentsTreasureTitlesGet,
 );
 router.get(
   '/open-banking/exchange/v1/operations/current',
