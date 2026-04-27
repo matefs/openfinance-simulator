@@ -8,7 +8,9 @@
     "start": "node --experimental-strip-types src/index.ts",
     "start:tsx": "tsx src/index.ts",
     "dev": "node --experimental-strip-types --env-file=.env --watch src/index.ts",
-    "dev:tsx": "tsx watch src/index.ts"
+    "dev:tsx": "tsx watch src/index.ts",
+    "seed": "node --experimental-strip-types --env-file=.env src/seed.ts",
+    "seed:tsx": "tsx src/seed.ts"
   },
   "keywords": [],
   "license": "ISC",
