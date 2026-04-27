@@ -29,6 +29,11 @@ docker compose up --build # reconstrói as imagens antes de subir
 docker compose down       # derruba os containers
 ```
 
+### Ver logs do docker: 
+```bash
+docker logs -f openfinance-simulator-app-1
+```` 
+
 Porta padrão: `5681` (configurável via `PORT`).
 
 ### Variáveis de ambiente
