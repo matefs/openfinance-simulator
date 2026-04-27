@@ -49,6 +49,12 @@ const contactSchema = new Schema(
 
 const customerSchema = new Schema({
   customerId: { type: String, required: true, unique: true },
+  status: {
+    type: String,
+    enum: ['PENDENTE', 'EM_ANALISE', 'APROVADO', 'REJEITADO'],
+    required: true,
+    default: 'PENDENTE',
+  },
   customerType: { type: String, enum: ['PF', 'PJ'], required: true },
   brandName: { type: String, required: true },
   companyCnpj: { type: String, required: true },
