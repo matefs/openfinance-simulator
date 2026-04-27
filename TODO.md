@@ -17,10 +17,11 @@
 
   - `Customer` é a âncora central — todas as entidades referenciam via `customerId`
   - `DataSharingConsent` e `PaymentConsent` são **coleções separadas** (campos e lifecycle diferentes)
-  - `Contract` é **uma coleção** com campo `contractType: 'LOAN' | 'FINANCING' | 'INVOICE_FINANCING' | 'UNARRANGED_OVERDRAFT'`
+  - `Contract` é **uma coleção** com campo `contractType: 'EMPRESTIMOS' | 'FINANCIAMENTOS' | 'DIREITOS_CREDITORIOS_DESCONTADOS' | 'ADIANTAMENTO_A_DEPOSITANTES'`
   - `balance` é **embedado** no `Account` (não é coleção separada)
-  - `AccountTransaction` e `CreditCardTransaction` são **coleções separadas** (crescem sem limite), com índice em `accountId + transactionDate`
-  - `Investment` é **uma coleção** com campo `investmentType: 'BANK_FIXED_INCOME' | 'CREDIT_FIXED_INCOME' | 'VARIABLE_INCOME' | 'TREASURE_TITLE'`
+  - `AccountTransaction` é **uma coleção separada** (cresce sem limite), com índice em `accountId + transactionDate`
+  - `CreditCardTransaction` é **uma coleção separada** (cresce sem limite), com índice em `creditCardAccountId + transactionDate` e `billId` auxiliar
+  - `Investment` é **uma coleção** com campo `investmentType: 'RENDA_FIXA_BANCARIA' | 'RENDA_FIXA_CREDITO' | 'RENDA_VARIAVEL' | 'TITULO_PUBLICO'`
 
   **Collections resultantes:**
   ```
@@ -29,7 +30,7 @@
   account_transactions      (ref accountId)
   credit_card_accounts      (ref customerId)
   credit_card_bills         (ref creditCardAccountId)
-  credit_card_transactions  (ref creditCardAccountId + billId)
+  credit_card_transactions  (ref creditCardAccountId, index em transactionDate, billId auxiliar)
   data_sharing_consents     (ref customerId)
   payment_consents          (ref customerId)
   pix_payments              (ref paymentConsentId)
